@@ -1,0 +1,108 @@
+﻿<style>
+    .filter_section {
+        margin-bottom: 20px;
+    }
+
+        .filter_section h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+
+        .filter_section ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+            .filter_section ul li {
+                margin-bottom: 5px;
+            }
+
+                .filter_section ul li a {
+                    text-decoration: none;
+                    color: #333;
+                }
+
+                    .filter_section ul li a:hover {
+                        color: #007bff;
+                    }
+
+    .book_list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        list-style: none;
+        padding-left: 0;
+    }
+
+        .book_list li {
+            flex: 0 0 calc(33.333% - 20px); /* Three items per row */
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+            .book_list li img {
+                width: 180px; /* Fixed width */
+                height: 260px; /* Fixed height */
+                object-fit: cover; /* Ensures image fills the dimensions without distortion */
+                margin-bottom: 10px; /* Space between image and text */
+            }
+
+            .book_list li span {
+                display: block;
+                font-size: 16px;
+                color: #333;
+            }
+</style>
+
+<div class="row">
+    <div class="col-md-3">
+        <!-- Sidebar cho lọc danh mục và tác giả -->
+        <div class="filter_section">
+            <h3>Danh Mục Chủ Đề</h3>
+            <ul>
+                @foreach (var chude in Model.chudes)
+                {
+                    <li>
+                        <a href="@Url.Action("FilterByCategory", "BookStore", new { id = chude.MaCD })">
+                            @chude.TenChuDe
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
+
+        <div class="filter_section">
+            <h3>Nhà xuất bản</h3>
+            <ul>
+                @foreach (var nhaxuatban in Model.nhaxuatbans)
+                {
+                    <li>
+                        <a href="@Url.Action("FilterByPublisher", "BookStore", new { id = nhaxuatban.MaNXB })">
+                            @nhaxuatban.TenNXB
+                        </a>
+                    </li>
+                }
+            </ul>
+        </div>
+    </div>
+
+    <div class="col-md-9">
+        <section class="catagory_section layout_padding">
+            <div class="catagory_container">
+                <div class="container">
+                    <ul class="book_list">
+                        @foreach (var sach in Model.saches)
+                        {
+                            <li>
+                                <a href="@Url.Action("Details", "BookStore", new { id = sach.Masach })">
+                                    <img alt="" src="~/Hinhsanpham/@sach.Anhbia" />
+                                    <span>@sach.Tensach</span>
+                                </a>
+                            </li>
+                        }
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
